@@ -1,0 +1,81 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results - Choco Delights</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Choco Delights</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="welcome.html">Home</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Explore More</a>
+                <div class="dropdown-content">
+                    <a href="about.html">About Us</a>
+                    <a href="recipes.html">Recipes</a>
+                    <a href="gallery.html">Gallery</a>
+                </div>
+            </li>
+            <li>
+                <form class="search-form" id="search-form">
+                    <input type="text" name="query" placeholder="Search">
+                    <button type="submit">Search</button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+
+    <main>
+        <section id="search-results">
+            <h2>Search Results</h2>
+            <div id="results-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Choco Delights. All rights reserved.</p>
+    </footer>
+
+    <script> <!-- JavaScript for search window, must be here for output good -->
+        
+        const searchData = [
+            { title: "Dark Chocolate Cake", content: "This moist dark chocolate cake is a delight for chocolate lovers. It's rich, flavorful, and perfect for any special occasion." },
+            { title: "Milk Chocolate Brownies", content: "Indulge in these fudgy and chewy milk chocolate brownies. They are incredibly delicious and a favorite treat for everyone." },
+            { title: "White Chocolate Cake", content: "This delicious and moist white chocolate cake is perfect for any celebration. It's rich, flavorful, and will surely delight your taste buds." }
+        ];
+
+       
+        function performSearch(event) {
+            event.preventDefault();
+
+            const query = document.getElementById("search-form").query.value.toLowerCase();
+            const resultsContainer = document.getElementById("results-container");
+            resultsContainer.innerHTML = "";
+
+            const matchingResults = searchData.filter(item =>
+                item.title.toLowerCase().includes(query) || item.content.toLowerCase().includes(query)
+            );
+
+            if (matchingResults.length === 0) {
+                resultsContainer.innerHTML = "<p>No results found for your search.</p>";
+            } else {
+                matchingResults.forEach(item => {
+                    const resultDiv = document.createElement("div");
+                    resultDiv.innerHTML = `<h3>${item.title}</h3><p>${item.content}</p>`;
+                    resultsContainer.appendChild(resultDiv);
+                });
+            }
+        }
+
+        document.getElementById("search-form").addEventListener("submit", performSearch);
+    </script>
+</body>
+
+</html>
